@@ -1,5 +1,5 @@
 import { Bot } from "https://deno.land/x/grammy@v1.15.0/mod.ts";
-import "https://deno.land/std@0.178.0/dotenv/load.ts"
+import "https://deno.land/std@0.178.0/dotenv/load.ts";
 import {cron, daily, monthly, weekly} from 'https://deno.land/x/deno_cron/cron.ts';
 // const env = await load();
 // PATH JSON;
@@ -11,28 +11,20 @@ const URL_API = "https://faq-comp.deno.dev/api";
 let timer = 1;
 
 const bot = new Bot(Deno.env.get("TOKEN"));
-
 let id_chat = Deno.env.get("CHATID");
 
-
-
-function readJson(){
-    const str = Deno.readTextFileSync(PATH_JSON);
+async function readJson(){
+    const str = await Deno.readTextFile(PATH_JSON);
     return JSON.parse(str);
     
 }
-function writeJson(data:string){
+async function writeJson(data:string){
     const json = JSON.stringify(data);
-    Deno.writeTextFileSync(PATH_JSON,json);
+    await Deno.writeTextFile(PATH_JSON,json);
 }
-
-
-
-
-
 async function getInfo(){
     // console.log("hi i load it!");
-    let data = readJson();
+    let data = await readJson();
     const res = await fetch(URL_API);
 
     let f_data = JSON.parse(await res.text());
@@ -53,26 +45,9 @@ async function getInfo(){
         }
     }
     // console.log(f_data);
-    writeJson(data);
-    
-     
-    
-
-
-
-
-    // 
-    // const me =await bot.api.getMe();
-    // console.log(readJson());
-     
-    // console.log(me);
-    
-    
+    await writeJson(data); 
 }
-
-
 let runing = false; 
- 
 cron(`*/${timer} * * * * *`,async ()=>{
     // console.log("load");
     if(!runing){
