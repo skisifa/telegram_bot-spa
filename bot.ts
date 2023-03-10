@@ -54,11 +54,9 @@ async function getInfo(){
 }
 let runing = false; 
 cron(`*/${timer} * * * * *`,async ()=>{
-    lisen = "LOAD!";
-    // console.log("LOAD!");
+    console.log("LOAD!");
     if(!runing){
-        // console.log("GET IT!");
-        lisen = "GET IT!";
+        console.log("GET IT!");
         runing = true;
         await getInfo();
         runing = false;
