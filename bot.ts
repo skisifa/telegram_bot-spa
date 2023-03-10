@@ -1,7 +1,7 @@
 import { Bot } from "https://deno.land/x/grammy@v1.15.0/mod.ts";
-// import { load } from "https://deno.land/std/dotenv/mod.ts";
+import "https://deno.land/std@0.178.0/dotenv/load.ts"
 import {cron, daily, monthly, weekly} from 'https://deno.land/x/deno_cron/cron.ts';
-const env = await load();
+// const env = await load();
 // PATH JSON;
 const PATH_JSON = "./data/data.json"; 
 // URL;
