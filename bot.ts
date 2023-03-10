@@ -1,10 +1,15 @@
 import { Bot } from "https://deno.land/x/grammy@v1.15.0/mod.ts";
 import "https://deno.land/std@0.178.0/dotenv/load.ts";
 import {cron, daily, monthly, weekly} from 'https://deno.land/x/deno_cron/cron.ts';
-import express from "npm:express@^4.17";
-const app = express();
+import { Application } from "https://deno.land/x/oak/mod.ts";
+
+const app = new Application();
 
 let lisen = "";
+
+
+
+
 
 
 
@@ -71,13 +76,15 @@ cron(`*/${timer} * * * * *`,async ()=>{
     }
 });
 
-app.get("/", (req, res) => {
-    res.send("the bot runing well. [ "+lisen+" ]");
+app.use((ctx) => {
+    ctx.response.body = "Hello World! [ "+lisen+" ]";
 });
-app.listen(3000,()=>{
+  
+app.addEventListener("listen",({hostname,port,secure})=>{
     bot.start();
-    console.log("start bot: 3000!");
-    
+    console.log("start bot in port: "+port);
 });
+
+await app.listen({port:8000});
 
 
