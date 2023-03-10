@@ -1,6 +1,16 @@
 import { Bot } from "https://deno.land/x/grammy@v1.15.0/mod.ts";
 import "https://deno.land/std@0.178.0/dotenv/load.ts";
 import {cron, daily, monthly, weekly} from 'https://deno.land/x/deno_cron/cron.ts';
+import express from "npm:express";
+const app = express();
+
+let lisen = "";
+
+
+
+  
+
+
 // const env = await load();
 // PATH JSON;
 const PATH_JSON = "./data/data.json"; 
@@ -49,14 +59,25 @@ async function getInfo(){
 }
 let runing = false; 
 cron(`*/${timer} * * * * *`,async ()=>{
-    // console.log("load");
+    lisen = "LOAD!";
+    // console.log("LOAD!");
     if(!runing){
-        // console.log("get");
+        // console.log("GET IT!");
+        lisen = "GET IT!";
         runing = true;
         await getInfo();
         runing = false;
 
     }
 });
-bot.start();
-console.log("bot=> start!");
+
+app.get("/", (req, res) => {
+    res.send("the bot runing well. [ "+lisen+" ]");
+});
+app.listen(3000,()=>{
+    bot.start();
+    console.log("start bot: 3000!");
+    
+});
+
+
