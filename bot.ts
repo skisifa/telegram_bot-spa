@@ -1,19 +1,9 @@
 import { Bot } from "https://deno.land/x/grammy@v1.15.0/mod.ts";
 import "https://deno.land/std@0.178.0/dotenv/load.ts";
 import {cron, daily, monthly, weekly} from 'https://deno.land/x/deno_cron/cron.ts';
-import { Application } from "https://deno.land/x/oak/mod.ts";
-
-const app = new Application();
-
-let lisen = "";
 
 
 
-
-
-
-
-  
 
 
 // const env = await load();
@@ -76,15 +66,10 @@ cron(`*/${timer} * * * * *`,async ()=>{
     }
 });
 
-app.use((ctx) => {
-    ctx.response.body = "Hello World! [ "+lisen+" ]";
-});
-  
-app.addEventListener("listen",({hostname,port,secure})=>{
-    bot.start();
-    console.log("start bot in port: "+port);
-});
 
-await app.listen({port:8000});
+bot.start();
+console.log("start bot!");
+
+
 
 
