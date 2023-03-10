@@ -1,5 +1,5 @@
 import { Bot } from "https://deno.land/x/grammy@v1.15.0/mod.ts";
-import { load } from "https://deno.land/std/dotenv/mod.ts";
+// import { load } from "https://deno.land/std/dotenv/mod.ts";
 import {cron, daily, monthly, weekly} from 'https://deno.land/x/deno_cron/cron.ts';
 const env = await load();
 // PATH JSON;
@@ -10,9 +10,9 @@ const URL_API = "https://faq-comp.deno.dev/api";
 //timmer
 let timer = 1;
 
-const bot = new Bot(env["TOKEN"]);
+const bot = new Bot(Deno.env.get("TOKEN"));
 
-let id_chat = env["CHATID"];
+let id_chat = Deno.env.get("CHATID");
 
 
 
